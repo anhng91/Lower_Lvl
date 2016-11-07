@@ -558,18 +558,6 @@ transformed data {
   vector[Ndata] param1_5; 
   vector[Ndata] param1_6; 
 
-  vector<lower = 0, upper = 1>[Nindex1_c_1s_04] zeta_index1_c_1s_04;
-  vector<lower = 0, upper = 1>[Nindex2_c_1s_04] zeta_index2_c_1s_04;
-  vector<lower = 0, upper = 1>[Nindex4_c_1s_04] zeta_index4_c_1s_04;
-  vector<lower = 0, upper = 1>[Nindex1_c_1s_10] zeta_index1_c_1s_10;
-  vector<lower = 0, upper = 1>[Nindex2_c_1s_10] zeta_index2_c_1s_10;
-  vector<lower = 0, upper = 1>[Nindex1_c_1s_06] zeta_index1_c_1s_06;
-  vector<lower = 0, upper = 1>[Nindex2_c_1s_06] zeta_index2_c_1s_06;
-  vector<lower = 0, upper = 1>[Nindex1_v_1s_04] zeta_index1_v_1s_04;
-  vector<lower = 0, upper = 1>[Nindex2_v_1s_04] zeta_index2_v_1s_04;
-  vector<lower = 0, upper = 1>[Nindex4_v_1s_04] zeta_index4_v_1s_04;
-  vector<lower = 0, upper = 1>[Nindex1_v_1s_10] zeta_index1_v_1s_10;
-  vector<lower = 0, upper = 1>[Nindex2_v_1s_10] zeta_index2_v_1s_10;
   vector[Nbc] theta_bc;
 
   theta_bc = rep_vector(0, Nbc);
@@ -767,19 +755,6 @@ transformed data {
     mu_omega = X_hh_wo * beta_omega;
     mu_gamma = X_ind_wo * beta_gamma; 
 
-    zeta_index1_c_1s_04 = rep_vector(0.5, Nindex1_c_1s_04);
-    zeta_index2_c_1s_04 = rep_vector(0.5, Nindex2_c_1s_04);
-    zeta_index4_c_1s_04 = rep_vector(0.5, Nindex4_c_1s_04);
-    zeta_index1_c_1s_10 = rep_vector(0.5, Nindex1_c_1s_10);
-    zeta_index2_c_1s_10 = rep_vector(0.5, Nindex2_c_1s_10);
-    zeta_index1_c_1s_06 = rep_vector(0.5, Nindex1_c_1s_06);
-    zeta_index2_c_1s_06 = rep_vector(0.5, Nindex2_c_1s_06);
-    zeta_index1_v_1s_04 = rep_vector(0.5, Nindex1_v_1s_04);
-    zeta_index2_v_1s_04 = rep_vector(0.5, Nindex2_v_1s_04);
-    zeta_index4_v_1s_04 = rep_vector(0.5, Nindex4_v_1s_04);
-    zeta_index1_v_1s_10 = rep_vector(0.5, Nindex1_v_1s_10);
-    zeta_index2_v_1s_10 = rep_vector(0.5, Nindex2_v_1s_10);
-
 }
 parameters {
   vector[Nnn04] zd_theta_nn04;
@@ -798,6 +773,19 @@ parameters {
   vector[Nhh] zd_R;
   vector[Nind] zd_GAMMA_;
   vector[Nhh] zd_OMEGA;
+
+  vector<lower = 0, upper = 1>[Nindex1_c_1s_04] zeta_index1_c_1s_04;
+  vector<lower = 0, upper = 1>[Nindex2_c_1s_04] zeta_index2_c_1s_04;
+  vector<lower = 0, upper = 1>[Nindex4_c_1s_04] zeta_index4_c_1s_04;
+  vector<lower = 0, upper = 1>[Nindex1_c_1s_10] zeta_index1_c_1s_10;
+  vector<lower = 0, upper = 1>[Nindex2_c_1s_10] zeta_index2_c_1s_10;
+  vector<lower = 0, upper = 1>[Nindex1_c_1s_06] zeta_index1_c_1s_06;
+  vector<lower = 0, upper = 1>[Nindex2_c_1s_06] zeta_index2_c_1s_06;
+  vector<lower = 0, upper = 1>[Nindex1_v_1s_04] zeta_index1_v_1s_04;
+  vector<lower = 0, upper = 1>[Nindex2_v_1s_04] zeta_index2_v_1s_04;
+  vector<lower = 0, upper = 1>[Nindex4_v_1s_04] zeta_index4_v_1s_04;
+  vector<lower = 0, upper = 1>[Nindex1_v_1s_10] zeta_index1_v_1s_10;
+  vector<lower = 0, upper = 1>[Nindex2_v_1s_10] zeta_index2_v_1s_10;
 }
 
 transformed parameters {
