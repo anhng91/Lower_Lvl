@@ -842,12 +842,12 @@ model {
       tempindex = c_1s_04[index1_c_1s_04[i]]; 
       temp_prob = 1 - prob1[tempindex] - (1 - bound_c_1s_04[index1_c_1s_04[i],1])*(1- prob1[tempindex] - prob0[tempindex]); 
       // Adjust the probability 
-      target += log(temp_prob); 
+       
       if (zeta_index1_c_1s_04[i] <= (prob0[tempindex]/temp_prob)) {
         logtheta = log(M_expense[tempindex]) - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2); 
         
-        target += log(prob0[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
       }
       else {
         temp_zeta = (zeta_index1_c_1s_04[i] - prob0[tempindex]*inv(temp_prob))*inv(1 - prob0[tempindex] - prob1[tempindex])* temp_prob; 
@@ -857,9 +857,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2 - temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex]) 
-        + log(bound_c_1s_04[index1_c_1s_04[i],1]) 
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }    
     }
   }
@@ -873,14 +871,14 @@ model {
 
       tempindex = c_1s_04[index2_c_1s_04[i]];
       temp_prob = (1 - (1 - prob0[tempindex] - prob1[tempindex])*(bound_c_1s_04[index2_c_1s_04[i],2] - bound_c_1s_04[index2_c_1s_04[i],1]));
-      target += log(temp_prob); 
+       
 
       if (zeta_index2_c_1s_04[i] <= prob0[tempindex]/temp_prob) {
         logtheta =  log(M_expense[tempindex]) 
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2); 
 
-        target += log(prob0[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
       else if (zeta_index2_c_1s_04[i] <= (prob1[tempindex] + prob0[tempindex])*inv(temp_prob)) {
         logtheta = log(M_expense[tempindex]) 
@@ -888,7 +886,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(1.2); 
 
-        target += log(prob1[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
       else if (zeta_index2_c_1s_04[i] <= (prob1[tempindex] + prob0[tempindex] + (1 - prob0[tempindex] - prob1[tempindex])*(bound_c_1s_04[index2_c_1s_04[i],1]))*inv(temp_prob)) {
         temp_zeta = (zeta_index2_c_1s_04[i] - (prob1[tempindex] + prob0[tempindex])*inv(temp_prob))*inv(1 - prob0[tempindex] - prob1[tempindex])*temp_prob; 
@@ -897,9 +895,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2 - temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex]) 
-        + log(bound_c_1s_04[index2_c_1s_04[i],1]) 
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
       }
       else {
         temp_zeta = (zeta_index2_c_1s_04[i] - (prob1[tempindex] + prob0[tempindex] + (1 - prob1[tempindex] - prob0[tempindex])*bound_c_1s_04[index2_c_1s_04[i],1])
@@ -910,9 +906,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex])* log(2 - 0.8 * temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex])
-        + log(1 - bound_c_1s_04[index2_c_1s_04[i], 2])
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
     }
   }
@@ -926,14 +920,14 @@ model {
 
       tempindex = c_1s_04[index4_c_1s_04[i]];
       temp_prob = (1 - prob1[tempindex] - (1 - prob0[tempindex] - prob1[tempindex])*(bound_c_1s_04[index4_c_1s_04[i],2] - bound_c_1s_04[index4_c_1s_04[i],1]));
-      target += log(temp_prob); 
+       
 
       if (zeta_index4_c_1s_04[i] <= prob0[tempindex]/temp_prob) {
         logtheta =  log(M_expense[tempindex]) 
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2); 
 
-        target += log(prob0[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
       else if (zeta_index4_c_1s_04[i] <= (prob0[tempindex] + (1 - prob0[tempindex] - prob1[tempindex])*(bound_c_1s_04[index4_c_1s_04[i],1]))*inv(temp_prob)) {
         temp_zeta = (zeta_index4_c_1s_04[i] - (prob0[tempindex] + (1 - prob0[tempindex] - prob1[tempindex])*(bound_c_1s_04[index4_c_1s_04[i],1]))*inv(temp_prob))
@@ -944,9 +938,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2 - temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex]) 
-        + log(bound_c_1s_04[index4_c_1s_04[i],1]) 
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
       }
       else if (zeta_index4_c_1s_04[i] <= (1 - (1 - prob0[tempindex] - prob1[tempindex])*(1 - bound_c_1s_04[index4_c_1s_04[i],3])*inv(temp_prob))) {
         temp_zeta = (zeta_index4_c_1s_04[i] - (prob0[tempindex] + (1 - prob0[tempindex] - prob1[tempindex])*(bound_c_1s_04[index4_c_1s_04[i],1]))*inv(temp_prob))
@@ -956,9 +948,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex])* log(2 - 0.8 * temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex])
-        + log(bound_c_1s_04[index2_c_1s_04[i], 3] - bound_c_1s_04[index2_c_1s_04[i], 2])
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
 
       else {
@@ -969,6 +959,8 @@ model {
         - log(1 - temp_zeta)
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex] - 1500*inv(unit_inc)) 
         + (GAMMA[tempindex])* log(2 - temp_zeta);
+
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
       }
     }
   }
@@ -983,12 +975,12 @@ model {
       tempindex = c_1s_10[index1_c_1s_10[i]]; 
       temp_prob = 1 - prob1[tempindex] - (1 - bound_c_1s_10[index1_c_1s_10[i],1])*(1- prob1[tempindex] - prob0[tempindex]); 
       // Adjust the probability 
-      target += log(temp_prob); 
+       
       if (zeta_index1_c_1s_10[i] <= (prob0[tempindex]/temp_prob)) {
         logtheta = log(M_expense[tempindex]) - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2); 
         
-        target += log(prob0[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
       }
       else {
         temp_zeta = (zeta_index1_c_1s_10[i] - prob0[tempindex]*inv(temp_prob))*inv(1 - prob0[tempindex] - prob1[tempindex])* temp_prob; 
@@ -998,9 +990,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2 - temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex]) 
-        + log(bound_c_1s_10[index1_c_1s_10[i],1]) 
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }    
     }
   }
@@ -1015,14 +1005,14 @@ model {
 
       tempindex = c_1s_10[index2_c_1s_10[i]];
       temp_prob = (1 - (1 - prob0[tempindex] - prob1[tempindex])*(bound_c_1s_10[index2_c_1s_10[i],2] - bound_c_1s_10[index2_c_1s_10[i],1]));
-      target += log(temp_prob); 
+       
 
       if (zeta_index2_c_1s_10[i] <= prob0[tempindex]/temp_prob) {
         logtheta =  log(M_expense[tempindex]) 
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2); 
 
-        target += log(prob0[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
       else if (zeta_index2_c_1s_10[i] <= (prob1[tempindex] + prob0[tempindex])*inv(temp_prob)) {
         logtheta = log(M_expense[tempindex]) 
@@ -1030,7 +1020,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(1.2); 
 
-        target += log(prob1[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
       else if (zeta_index2_c_1s_10[i] <= (prob1[tempindex] + prob0[tempindex] + (1 - prob0[tempindex] - prob1[tempindex])*(bound_c_1s_10[index2_c_1s_10[i],1]))*inv(temp_prob)) {
         temp_zeta = (zeta_index2_c_1s_10[i] - (prob1[tempindex] + prob0[tempindex])*inv(temp_prob))*inv(1 - prob0[tempindex] - prob1[tempindex])*temp_prob; 
@@ -1039,9 +1029,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2 - temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex]) 
-        + log(bound_c_1s_10[index2_c_1s_10[i],1]) 
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
       }
       else {
         temp_zeta = (zeta_index2_c_1s_10[i] - (prob1[tempindex] + prob0[tempindex] + (1 - prob1[tempindex] - prob0[tempindex])*bound_c_1s_10[index2_c_1s_10[i],1])
@@ -1052,9 +1040,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex])* log(2 - 0.8 * temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex])
-        + log(1 - bound_c_1s_10[index2_c_1s_10[i], 2])
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
     }
   }
@@ -1071,14 +1057,14 @@ model {
       logtheta = log(M_expense[tempindex]) - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
       + (GAMMA[tempindex]) * log(2); 
       
-      target += log(prob0[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+      target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
     }
     else if (zeta_index1_c_1s_06[i] <= (prob0[tempindex] + prob1[tempindex])) {
       logtheta = log(M_expense[tempindex] + 7000*inv(unit_inc)) 
       - (OMEGA[HHid[tempindex]]) * log(Income[tempindex] + 7000*inv(unit_inc)) 
       + (GAMMA[tempindex])* log(2); 
 
-      target += log(prob1[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+      target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
     }
     else if (zeta_index1_c_1s_06[i] <= (prob0[tempindex] + prob1[tempindex] + (1 - prob0[tempindex] - prob1[tempindex])*bound_c_1s_06[index1_c_1s_06[i],1]) ) {
       temp_zeta = (zeta_index1_c_1s_06[i] - prob0[tempindex] - prob1[tempindex])*inv(1 - prob0[tempindex] - prob1[tempindex]); 
@@ -1087,14 +1073,14 @@ model {
       - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
       + (GAMMA[tempindex]) * log(2 - temp_zeta);
 
-    target += log(1 - prob0[tempindex] - prob1[tempindex]) + log(bound_c_1s_06[index1_c_1s_06[i],1]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+    target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
     }
     else {
       logtheta = log(M_expense[tempindex] + 7000*inv(unit_inc)) 
       - (OMEGA[HHid[tempindex]]) * log(Income[tempindex] + 7000*inv(unit_inc)) 
       + (GAMMA[tempindex])* log(2);  
 
-      target += log(1 - prob0[tempindex] - prob1[tempindex]) + log(1 - bound_c_1s_06[index1_c_1s_06[i],1]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+      target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
     }    
   }
 
@@ -1110,7 +1096,7 @@ model {
       logtheta = log(M_expense[tempindex]) - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
       + (GAMMA[tempindex]) * log(2); 
       
-      target += log(prob0[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+      target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
     }
     else if (zeta_index2_c_1s_06[i] <= (prob0[tempindex] + prob1[tempindex])) {
       logtheta = log(M_expense[tempindex]) 
@@ -1118,7 +1104,7 @@ model {
       - (OMEGA[HHid[tempindex]]) * log(Income[tempindex] + 7000*inv(unit_inc)) 
       + (GAMMA[tempindex])* log(1.4); 
 
-      target += log(prob1[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+      target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
     }
     else if (zeta_index2_c_1s_06[i] <= (prob0[tempindex] + prob1[tempindex] + (1 - prob0[tempindex] - prob1[tempindex])*bound_c_1s_06[index2_c_1s_06[i],1]) ) {
       temp_zeta = (zeta_index2_c_1s_06[i] - prob0[tempindex] - prob1[tempindex])*inv(1 - prob0[tempindex] - prob1[tempindex]); 
@@ -1127,14 +1113,14 @@ model {
       - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
       + (GAMMA[tempindex]) * log(2 - temp_zeta);
 
-    target += log(1 - prob0[tempindex] - prob1[tempindex]) + log(bound_c_1s_06[index2_c_1s_06[i],1]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+    target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
     }
     else if (zeta_index2_c_1s_06[i] <= (1 - (1 - prob0[tempindex] - prob1[tempindex])*(1 - bound_c_1s_06[index2_c_1s_06[i],2]))) { 
       logtheta = log(M_expense[tempindex] + 7000*inv(unit_inc)) 
       - (OMEGA[HHid[tempindex]]) * log(Income[tempindex] + 7000*inv(unit_inc)) 
       + (GAMMA[tempindex])* log(2);  
 
-      target += log(1 - prob0[tempindex] - prob1[tempindex]) + log(bound_c_1s_06[index2_c_1s_06[i],2] - bound_c_1s_06[index2_c_1s_06[i],1]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+      target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
     }
     else {
       temp_zeta = (zeta_index2_c_1s_06[i] - (1 - (1 - prob0[tempindex] - prob1[tempindex])*(1 - bound_c_1s_06[index2_c_1s_06[i],2])))
@@ -1144,30 +1130,13 @@ model {
       - log(1 - 0.6 * (temp_zeta))
       - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
       + (GAMMA[tempindex])* log(2 - 0.6 * (temp_zeta));
-      target += log(1 - prob0[tempindex] - prob1[tempindex]) + log(1 - bound_c_1s_06[index2_c_1s_06[i],2]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+      target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
 
     }    
   }
 
     
   // Update the prior of normalized values 
-    (GAMMA_ - mu_gamma)*inv(SGAMMA) ~ normal(0,1) ;
-    (OMEGA - mu_omega)*inv(SOMEGA) ~ normal(0,1) ;
-    (R - mu_r)*inv(SR) ~ normal(0,1) ; 
-    (THETA[nn04] - mu_theta[nn04])*inv(STHETABAR) ~ normal(0,1);
-    (THETA[nn08] - mu_theta[nn08])*inv(STHETABAR) ~ normal(0,1);
-    (THETA[ns08] - mu_theta[ns08])*inv(STHETABAR) ~ normal(0,1);
-    (THETA[ns04] - mu_theta[ns04])*inv(STHETABAR) ~ normal(0,1);
-    (THETA[vn04] - mu_theta[vn04])*inv(STHETABAR) ~ normal(0,1);
-    (THETA[vs04] - mu_theta[vs04])*inv(STHETABAR) ~ normal(0,1);
-    
-    (THETA[vn08] - mu_theta[vn08])*inv(STHETABAR) ~ normal(0,1);
-    (THETA[vs08] - mu_theta[vs08])*inv(STHETABAR) ~ normal(0,1);
-
-    target += sum(zd_OMEGA) + sum(zd_GAMMA_) + sum(zd_R) + sum(zd_theta_vs08)
-      + sum(zd_theta_vs04) + sum(zd_theta_vn08) + sum(zd_theta_vn04) + sum(zd_theta_ns08) + sum(zd_theta_ns04) 
-      + sum(zd_theta_nn04) + sum(zd_theta_nn08); 
-
     zeta_index1_c_1s_04 ~ uniform(0,1);
   
     zeta_index2_c_1s_04 ~ uniform(0,1);
@@ -1201,12 +1170,12 @@ model {
       tempindex = v_1s_04[index1_v_1s_04[i]]; 
       temp_prob = 1 - prob1[tempindex] - (1 - bound_v_1s_04[index1_v_1s_04[i],1])*(1- prob1[tempindex] - prob0[tempindex]); 
       // Adjust the probability 
-      target += log(temp_prob); 
+       
       if (zeta_index1_v_1s_04[i] <= (prob0[tempindex]/temp_prob)) {
         logtheta = log(M_expense[tempindex]) - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2); 
         
-        target += log(prob0[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
       }
       else {
         temp_zeta = (zeta_index1_v_1s_04[i] - prob0[tempindex]*inv(temp_prob))*inv(1 - prob0[tempindex] - prob1[tempindex])* temp_prob; 
@@ -1216,9 +1185,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2 - temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex]) 
-        + log(bound_v_1s_04[index1_v_1s_04[i],1]) 
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }    
     }
   }
@@ -1232,14 +1199,14 @@ model {
 
       tempindex = v_1s_04[index2_v_1s_04[i]];
       temp_prob = (1 - (1 - prob0[tempindex] - prob1[tempindex])*(bound_v_1s_04[index2_v_1s_04[i],2] - bound_v_1s_04[index2_v_1s_04[i],1]));
-      target += log(temp_prob); 
+       
 
       if (zeta_index2_v_1s_04[i] <= prob0[tempindex]/temp_prob) {
         logtheta =  log(M_expense[tempindex]) 
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2); 
 
-        target += log(prob0[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
       else if (zeta_index2_v_1s_04[i] <= (prob1[tempindex] + prob0[tempindex])*inv(temp_prob)) {
         logtheta = log(M_expense[tempindex]) 
@@ -1247,7 +1214,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(1.2); 
 
-        target += log(prob1[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
       else if (zeta_index2_v_1s_04[i] <= (prob1[tempindex] + prob0[tempindex] + (1 - prob0[tempindex] - prob1[tempindex])*(bound_v_1s_04[index2_v_1s_04[i],1]))*inv(temp_prob)) {
         temp_zeta = (zeta_index2_v_1s_04[i] - (prob1[tempindex] + prob0[tempindex])*inv(temp_prob))*inv(1 - prob0[tempindex] - prob1[tempindex])*temp_prob; 
@@ -1256,9 +1223,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2 - temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex]) 
-        + log(bound_v_1s_04[index2_v_1s_04[i],1]) 
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
       }
       else {
         temp_zeta = (zeta_index2_v_1s_04[i] - (prob1[tempindex] + prob0[tempindex] + (1 - prob1[tempindex] - prob0[tempindex])*bound_v_1s_04[index2_v_1s_04[i],1])
@@ -1269,9 +1234,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex])* log(2 - 0.8 * temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex])
-        + log(1 - bound_v_1s_04[index2_v_1s_04[i], 2])
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
     }
   }
@@ -1285,14 +1248,14 @@ model {
 
       tempindex = v_1s_04[index4_v_1s_04[i]];
       temp_prob = (1 - prob1[tempindex] - (1 - prob0[tempindex] - prob1[tempindex])*(bound_v_1s_04[index4_v_1s_04[i],2] - bound_v_1s_04[index4_v_1s_04[i],1]));
-      target += log(temp_prob); 
+       
 
       if (zeta_index4_v_1s_04[i] <= prob0[tempindex]/temp_prob) {
         logtheta =  log(M_expense[tempindex]) 
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2); 
 
-        target += log(prob0[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
       else if (zeta_index4_v_1s_04[i] <= (prob0[tempindex] + (1 - prob0[tempindex] - prob1[tempindex])*(bound_v_1s_04[index4_v_1s_04[i],1]))*inv(temp_prob)) {
         temp_zeta = (zeta_index4_v_1s_04[i] - (prob0[tempindex] + (1 - prob0[tempindex] - prob1[tempindex])*(bound_v_1s_04[index4_v_1s_04[i],1]))*inv(temp_prob))
@@ -1303,9 +1266,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2 - temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex]) 
-        + log(bound_v_1s_04[index4_v_1s_04[i],1]) 
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
       }
       else if (zeta_index4_v_1s_04[i] <= (1 - (1 - prob0[tempindex] - prob1[tempindex])*(1 - bound_v_1s_04[index4_v_1s_04[i],3])*inv(temp_prob))) {
         temp_zeta = (zeta_index4_v_1s_04[i] - (prob0[tempindex] + (1 - prob0[tempindex] - prob1[tempindex])*(bound_v_1s_04[index4_v_1s_04[i],1]))*inv(temp_prob))
@@ -1315,9 +1276,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex])* log(2 - 0.8 * temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex])
-        + log(bound_v_1s_04[index2_v_1s_04[i], 3] - bound_v_1s_04[index2_v_1s_04[i], 2])
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
 
       else {
@@ -1328,6 +1287,8 @@ model {
         - log(1 - temp_zeta)
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex] - 1500*inv(unit_inc)) 
         + (GAMMA[tempindex])* log(2 - temp_zeta);
+
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
     }
   }
@@ -1355,12 +1316,12 @@ model {
       tempindex = v_1s_10[index1_v_1s_10[i]]; 
       temp_prob = 1 - prob1[tempindex] - (1 - bound_v_1s_10[index1_v_1s_10[i],1])*(1- prob1[tempindex] - prob0[tempindex]); 
       // Adjust the probability 
-      target += log(temp_prob); 
+       
       if (zeta_index1_v_1s_10[i] <= (prob0[tempindex]/temp_prob)) {
         logtheta = log(M_expense[tempindex]) - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2); 
         
-        target += log(prob0[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
       }
       else {
         temp_zeta = (zeta_index1_v_1s_10[i] - prob0[tempindex]*inv(temp_prob))*inv(1 - prob0[tempindex] - prob1[tempindex])* temp_prob; 
@@ -1370,9 +1331,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2 - temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex]) 
-        + log(bound_v_1s_10[index1_v_1s_10[i],1]) 
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }    
     }
   }
@@ -1387,14 +1346,14 @@ model {
 
       tempindex = v_1s_10[index2_v_1s_10[i]];
       temp_prob = (1 - (1 - prob0[tempindex] - prob1[tempindex])*(bound_v_1s_10[index2_v_1s_10[i],2] - bound_v_1s_10[index2_v_1s_10[i],1]));
-      target += log(temp_prob); 
+       
 
       if (zeta_index2_v_1s_10[i] <= prob0[tempindex]/temp_prob) {
         logtheta =  log(M_expense[tempindex]) 
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2); 
 
-        target += log(prob0[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
       else if (zeta_index2_v_1s_10[i] <= (prob1[tempindex] + prob0[tempindex])*inv(temp_prob)) {
         logtheta = log(M_expense[tempindex]) 
@@ -1402,7 +1361,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(1.2); 
 
-        target += log(prob1[tempindex]) + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
       else if (zeta_index2_v_1s_10[i] <= (prob1[tempindex] + prob0[tempindex] + (1 - prob0[tempindex] - prob1[tempindex])*(bound_v_1s_10[index2_v_1s_10[i],1]))*inv(temp_prob)) {
         temp_zeta = (zeta_index2_v_1s_10[i] - (prob1[tempindex] + prob0[tempindex])*inv(temp_prob))*inv(1 - prob0[tempindex] - prob1[tempindex])*temp_prob; 
@@ -1411,9 +1370,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex]) * log(2 - temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex]) 
-        + log(bound_v_1s_10[index2_v_1s_10[i],1]) 
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
       }
       else {
         temp_zeta = (zeta_index2_v_1s_10[i] - (prob1[tempindex] + prob0[tempindex] + (1 - prob1[tempindex] - prob0[tempindex])*bound_v_1s_10[index2_v_1s_10[i],1])
@@ -1424,9 +1381,7 @@ model {
         - (OMEGA[HHid[tempindex]]) * log(Income[tempindex]) 
         + (GAMMA[tempindex])* log(2 - 0.8 * temp_zeta); 
 
-        target += log(1 - prob0[tempindex] - prob1[tempindex])
-        + log(1 - bound_v_1s_10[index2_v_1s_10[i], 2])
-        + normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
+        target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR);
       }
     }
   }
