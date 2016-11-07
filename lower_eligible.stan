@@ -1384,20 +1384,6 @@ model {
     }
   }
 
-  if (Nv_1s_08 > 0) {
-    for (i in 1:Nv_1s_08){
-      real temp; 
-      real logtheta; 
-      int tempindex; 
-      tempindex = v_1s_08[i];
-      logtheta = log(tot_cost[tempindex]) 
-        - (OMEGA[HHid[tempindex]]) * ACTUAL_Y[tempindex] 
-        + (GAMMA[tempindex]) * ACTUAL_P[tempindex];
-
-      target += normal_lpdf(logtheta | THETA[tempindex], STHETABAR); 
-    }
-  } 
-
   if (Nindex1_v_1s_10 > 0) { 
     for (i in 1:Nindex1_v_1s_10){ 
       real logtheta;
